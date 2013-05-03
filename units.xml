@@ -1,0 +1,107 @@
+<!-- NOTE: The order for unit dimensions is [length, mass, time, current, temperature, groups, luminous intensity] based on the SI system.  -->
+<!--    Also note that these may be negative (for example, m/s^2 is [1, 0, -2, 0, 0, 0, 0, 0]).  Non-base units should NOT be defined in    -->
+<!--    other unitSets.  (i.e., ft/s^2 should not be defined in [1, 0, -2, 0, 0, 0, 0, 0] because ft and s are already defined elsewhere)   -->
+
+<!-- Notes on XML tags:                                                                                                                     -->
+<!-- units is the root tag                                                                                                                  -->
+<!-- unitSet defines a group of units with the same dimensions, as specified by the dim attribute                                           -->
+<!-- unit defines a single unit.  The prefixes attribute tells if the unit can take metric prefixes; fromDef defines the unit in terms of   -->
+<!--    some other unit, leading away from the default unit; toDef defines a unit closer to the default unit in terms of the current one    -->
+
+<!-- Notes on variable sytax:                                                                                                               -->
+<!-- Format variables in the form ${varName}.  ${def} is used for both fromDef and trueDef for the unit that is the default unit for that   -->
+<!--    unitSet.  Other units use the unit abbreviations to define themselves.  Note that the units must be an EXACT match; ${C} does not   -->
+<!--    work in place of ${°C}.                                                                                                             -->
+<units>
+    <unitSet dim="[1, 0, 0, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1">m</unit>
+        <unit prefixes="false" def=".0254">in</unit>
+        <unit prefixes="false" def=".305">ft</unit>
+        <unit prefixes="false" def=".914">yd</unit>
+        <unit prefixes="false" def="1610">mi</unit>
+    </unitSet>
+    <unitSet dim="[0, 1, 0, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1">g</unit>
+        <unit prefixes="false" def="1.66e-27">amu</unit>
+        <unit prefixes="false" def="453.59237">lb</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, 1, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1">s</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, 0, 1, 0, 0, 0]">
+        <unit prefixes="true" def="1">A</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, 0, 0, 1, 0, 0]">
+        <unit prefixes="false" def="1">K</unit>
+        <unit prefixes="false" def="1">°C</unit>
+        <unit prefixes="false" def=".556">°F</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, 0, 0, 0, 1, 0]">
+        <unit prefixes="false" def="1">mol</unit>
+        <unit prefixes="false" def="1.99e+23">dozen</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, 0, 0, 0, 0, 1]">
+        <unit prefixes="true" def="1">cd</unit>
+        <unit prefixes="true" def="1">lm</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, -1, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1">Hz</unit>
+        <unit prefixes="true" def="1">Bq</unit>
+    </unitSet>
+    <unitSet dim="[1, 1, -2, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1000">N</unit>
+        <unit prefixes="false" def="4.45">lbf</unit>
+    </unitSet>
+    <unitSet dim="[-1, 1, -2, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1000">Pa</unit>
+    </unitSet>
+    <unitSet dim="[2, 1, -2, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1000">J</unit>
+    </unitSet>
+    <unitSet dim="[2, 1, -3, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1000">W</unit>
+    </unitSet>
+    <unitSet dim="[1, 0, 0, 1, 0, 0, 0]">
+        <unit prefixes="true" def="$1">C</unit>
+    </unitSet>
+    <unitSet dim="[2, 1, -3, -1, 0, 0, 0]">
+        <unit prefixes="true" def="1000">V</unit>
+    </unitSet>
+    <unitSet dim="[-2, -1, 4, 2, 0, 0, 0]">
+        <unit prefixes="true" def=".001">F</unit>
+    </unitSet>
+    <unitSet dim="[-2, 1, -3, -2, 0, 0, 0]">
+        <unit prefixes="true" def="1000">Ω</unit>
+    </unitSet>
+    <unitSet dim="[2, -1, 3, 2, 0, 0, 0]">
+        <unit prefixes="true" def=".001">S</unit>
+    </unitSet>
+    <unitSet dim="[2, 1, -2, -1, 0, 0, 0]">
+        <unit prefixes="true" def="1000">Wb</unit>
+    </unitSet>
+    <unitSet dim="[0, 1, -2, -1, 0, 0, 0]">
+        <unit prefixes="true" def="1000">T</unit>
+    </unitSet>
+    <unitSet dim="[2, 1, -2, -2, 0, 0, 0]">
+        <unit prefixes="true" def="1000">H</unit>
+    </unitSet>
+    <unitSet dim="[-2, 0, 0, 0, 0, 0, 1]">
+        <unit prefixes="true" def="1">lx</unit>
+    </unitSet>
+    <unitSet dim="[2, 0, -2, 0, 0, 0, 0]">
+        <unit prefixes="true" def="$1">Gy</unit>
+        <unit prefixes="true" def="1">Sv</unit>
+    </unitSet>
+    <unitSet dim="[0, 0, -1, 0, 0, 1, 0]">
+        <unit prefixes="true" def="1">kat</unit>
+    </unitSet>
+    <unitSet dim="[3, 0, 0, 0, 0, 0, 0]">
+        <unit prefixes="true" def="1000">L</unit>
+        <unit prefixes="false" def="3790">gal</unit>
+        <unit prefixes="false" def="946">qt</unit>
+        <unit prefixes="false" def="473">pt</unit>
+        <unit prefixes="false" def="237">cup</unit>
+        <unit prefixes="false" def="14.8">tbsp</unit>
+        <unit prefixes="false" def="4.93">tsp</unit>
+    </unitSet>
+</units>

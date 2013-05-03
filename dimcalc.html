@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>Dimensional Calculator</title>
+        
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [["\\(","\\)"]]
+            }
+          });
+        </script>
+        <script type="text/javascript"
+          src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
+        </script>
+        
+        <style type="text/css">
+            div.scroll {
+                height: 600px;
+                width: 800px;
+                overflow: auto;
+                border: 1px solid #aaa;
+                background-color: #eee;
+                padding: 8px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            div.center {
+                width:800px;
+                padding:8px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            .input {
+                width:700px;
+            }
+            .eval {
+                width:80px;
+            }
+            p {
+                font-family:Arial;
+                font-size:12;
+                padding:8px;
+            }
+            p.ok {
+                background-color: #DDFFDD;
+                color: #5F7F5F;
+            }
+            p.warning {
+                background-color: #FFFFDD;
+                color: #7F7F5F;
+            }
+            p.error {
+                background-color: #FFDDDD;
+                color: #7F5F5F;
+            }
+        
+        </style>
+        
+    </head>
+    <body>
+        <script>
+          (function () { //init MathJax
+            var QUEUE = MathJax.Hub.queue;  
+            window.UpdateMath = function(){
+              QUEUE.Push(["Typeset", MathJax.Hub, "output"]);
+            }
+          })();
+        </script>
+        <script type="text/javascript" src="stringparsing.js"></script>
+        <script>
+            var lastAnswer = null; //stores the previous answer for conversion purposes
+            
+            window.UpdateAnswer = function(str){ //update an answer after "Evaluate" is clicked
+                document.getElementById("messages").innerHTML = "";
+                var arr = null;
+                try{
+                    arr = parse(document.getElementById("input").value);
+                var eq = getLaTexString(arr);
+                var valarr = evaluateMath(arr);
+                var val = getLaTexString(valarr);
+                } catch(err) {
+                    document.getElementById("messages").innerHTML += '<p class="error">' + err + '</p>';
+                    return;
+                }
+                document.getElementById("messages").innerHTML += '<p class="ok">Evaluation complete.</p>';
+                document.getElementById("output").innerHTML += '<p align="left">\\(' + eq + '\\)</p>';
+                document.getElementById("output").innerHTML += '<p align="right">\\(= ' + val + '\\)</p>';
+                document.getElementById("input").value = "";
+                document.getElementById("input").focus();
+                document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
+                lastAnswer = valarr[0];
+                UpdateMath();
+            }
+                
+            window.Convert = function(){ //update an answer after "Convert" is clicked
+                document.getElementById("messages").innerHTML = "";
+                var result = null;
+                try{
+                    result = convert(lastAnswer, document.getElementById("conversionInput").value);
+                } catch(err) {
+                    document.getElementById("messages").innerHTML += '<p class="error">' + err + '</p>';
+                    return;
+                }
+                document.getElementById("messages").innerHTML += '<p class="ok">Conversion complete.</p>';
+                document.getElementById("output").innerHTML += '<p align="right">\\(= ' + result.toLaTexString() + '\\)</p>';
+                document.getElementById("conversionInput").value = "";
+                document.getElementById("conversionInput").focus();
+                document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
+                lastAnswer = result;
+                UpdateMath();
+            }
+                
+            window.GiveWarning = function(str){
+                document.getElementById("messages").innerHTML += '<p class="warning">' + str + '</p>';
+            }
+        </script>
+        
+        <div class="scroll" id="output"></div>
+        <div class="center">
+            <input type="text" id="input" autocomplete="off" class="input" onKeydown="if(event.keyCode == 13) UpdateAnswer()">
+            <input type="submit" value="Evaluate" onclick="UpdateAnswer()" class="eval" width="800">
+            <input type="text" id="conversionInput" autocomplete="off" class="input" onKeydown="if(event.keyCode == 13) Convert()">
+            <input type="submit" value="Convert" onclick="Convert()" class="eval" width="800">
+            <div id="messages"></div>
+        </div>
+    </body>
+</html>
